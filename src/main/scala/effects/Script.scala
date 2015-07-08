@@ -8,6 +8,7 @@ object Script {
   def update(key: String, value: String): Script[Option[String]] = toScript(Update(key, value))
   def get(key: String): Script[Option[String]] = toScript(Get(key))
   def delete(key: String): Script[Unit] = toScript(Delete(key))
+  def logInfo(message: String): Script[Unit] = toScript(LogInfo(message))
   def getLongNameConfig: Script[Option[Int]] = toScript(GetLongNameConfig)
 
   def pure[A](a: A): Script[A] = Monad[Script].pure(a)

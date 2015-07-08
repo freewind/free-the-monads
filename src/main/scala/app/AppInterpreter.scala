@@ -1,6 +1,6 @@
 package app
 
-import effects.{GetLongNameConfig, Update, Delete, Get, Insert, AppAction, Interpreter}
+import effects.{LogInfo, GetLongNameConfig, Update, Delete, Get, Insert, AppAction, Interpreter}
 
 case class Config(longNameSize: Int)
 
@@ -16,6 +16,7 @@ class AppInterpreter(config: Option[Config] = None) extends Interpreter {
       val old = kvstore.get(k)
       kvstore += (k -> v)
       old
+    case LogInfo(msg) => println(msg)
     case GetLongNameConfig => config.map(_.longNameSize)
   }
 

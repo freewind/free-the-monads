@@ -34,6 +34,11 @@ object BigKVStoreDemo extends App {
     }
   }
 
+  def testPure() = for {
+    name <- Script.pure(true)
+    _ <- Script.logInfo("Hello testPure, should this line be print ? ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+  } yield ()
+
   val config = Config(7)
   val interpreter = new AppInterpreter(Some(config))
   initStore().runWith(interpreter)
@@ -45,5 +50,6 @@ object BigKVStoreDemo extends App {
   println(upcaseLongName("name5").runWith(interpreter))
   println(upcaseLongName("name100").runWith(interpreter))
 
+  println(testPure().runWith(interpreter))
 
 }
