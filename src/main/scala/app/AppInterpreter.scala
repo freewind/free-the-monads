@@ -1,6 +1,6 @@
 package app
 
-import effects.{LogInfo, GetLongNameConfig, Update, Delete, Get, Insert, AppAction, Interpreter}
+import effects._
 
 case class Config(longNameSize: Int)
 
@@ -18,6 +18,7 @@ class AppInterpreter(config: Option[Config] = None) extends Interpreter {
       old
     case LogInfo(msg) => println(msg)
     case GetLongNameConfig => config.map(_.longNameSize)
+    case FailedWithMessage(msg) => throw new RuntimeException(msg)
   }
 
 }

@@ -10,7 +10,7 @@ object Script {
   def delete(key: String): Script[Unit] = toScript(Delete(key))
   def logInfo(message: String): Script[Unit] = toScript(LogInfo(message))
   def getLongNameConfig: Script[Option[Int]] = toScript(GetLongNameConfig)
-
+  def failedWithMessage(message: String): Script[Unit] = toScript(FailedWithMessage(message))
   def pure[A](a: A): Script[A] = Monad[Script].pure(a)
 
   private def toScript[A](appAction: AppAction[A]): Script[A] = Free.liftFC(appAction)

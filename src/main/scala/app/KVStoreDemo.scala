@@ -22,6 +22,13 @@ object KVStoreDemo extends App {
     finalValue <- Script.get("name")
   } yield (oriValue, finalValue)
 
+  def insertAndGetWithFailure() = for {
+    _ <- Script.insert("name", "Freewind")
+    _ <- Script.logInfo("Inserted :)")
+    _ <- Script.failedWithMessage("Sorry, failed!!!")
+    value <- Script.get("name")
+  } yield value
+
   println("======== insertAndGet ==========")
   println(insertAndGet().runWith(new AppInterpreter))
 
@@ -30,6 +37,9 @@ object KVStoreDemo extends App {
 
   println("======== insertAndUpdateAndDelete ========")
   println(insertAndUpdateAndDelete().runWith(new AppInterpreter))
+
+  println("======== insertAndGetWithFailure ========")
+  println(insertAndGetWithFailure().runWith(new AppInterpreter))
 
 }
 
